@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  body { @apply bg-soft-blush text-rich-cocoa font-sans; }
+  h1, h2, h3, h4, h5, h6 { @apply font-sans tracking-tight; }
+}
+
+@layer components {
+  .glass-card {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 245, 247, 0.3);
+  }
+  .glass-blush-card {
+    background: rgba(255, 245, 247, 0.45);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  .magnetic-button {
+    @apply relative inline-flex items-center justify-center px-8 py-4 rounded-full font-medium transition-all duration-300;
+    background: linear-gradient(135deg, #E88C9A 0%, #D96C83 100%);
+    color: white;
+    box-shadow: 0 8px 32px rgba(232, 140, 154, 0.2);
+  }
+  .magnetic-button:hover { box-shadow: 0 12px 40px rgba(232, 140, 154, 0.35); transform: translateY(-2px); }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .clamp-text-xl { font-size: clamp(1.25rem, 4vw, 1.5rem); }
+  .clamp-text-2xl { font-size: clamp(1.5rem, 6vw, 2.25rem); }
+  .clamp-text-3xl { font-size: clamp(2rem, 8vw, 3.75rem); }
+  .clamp-text-4xl { font-size: clamp(2.5rem, 10vw, 5rem); }
+  .clamp-text-5xl { font-size: clamp(3rem, 12vw, 6.25rem); }
+}
