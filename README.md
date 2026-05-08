@@ -1,195 +1,166 @@
 # Kindonar Humanitarian
 
-AWWWARDS-winning cinematic NGO website with immersive fake-3D storytelling, built for maximum recruiter/judge impact.
+Modern NGO website template built with Next.js 14, TypeScript, and Tailwind CSS.
 
-## Architecture Overview
+Designed for international non-profit organizations with a focus on donations, program discovery, responsive UI, and smooth user experience.
 
-- **Next.js 14 App Router**: File-based routing with server components
-- **TypeScript**: Strict type safety across all components
-- **Tailwind CSS**: Custom pastel pink luxury design system
-- **GSAP + Framer Motion**: Cinematic animations and scroll effects
-- **Zustand**: Lightweight donation state management with persistence
-- **Stripe Checkout**: Secure payment processing (test mode)
+---
 
-## Cinematic Storytelling System
+## Live Demo
 
-The website uses a 3-act cinematic structure:
+https://kindonar-ngo-website.vercel.app/
 
-**Act 1 — Immersion**
-- Giant cinematic hero with parallax
-- Emotional imagery with slow atmospheric motion
-- Layered depth with foreground/background separation
-- Minimal typography for impact
+---
 
-**Act 2 — Human Impact**
-- Statistics emerge from imagery
-- Documentary-style storytelling
-- Measurable outcomes displayed elegantly
-- Animated counters with GSAP
+## Tech Stack
 
-**Act 3 — Participation**
-- Donation flow becomes central
-- Floating CTA layers
-- Frictionless giving experience
+- Next.js 14 App Router
+- TypeScript
+- Tailwind CSS
+- GSAP
+- Framer Motion
+- Zustand
+- Stripe Checkout
 
-**Final Moment — Hope**
-- Calm elegant ending
-- Emotional resolution
-- Inspiring CTA
+---
 
-## Fake 3D Illusion Approach
+## Features
 
-Simulated without WebGL using:
+### Home Page
+- Mission-focused hero section
+- Featured programs
+- Animated impact statistics
+- Donate CTA
 
-1. **Layered Parallax**: `data-speed` attributes create depth
-   - Foreground layers move 2x faster than background
-   - `initParallax()` helper calculates scroll-based y-offset
+### Programs Page
+- Program listings with images
+- Progress indicators
+- Social sharing support
 
-2. **Expanding Imagery**: GSAP ScrollTrigger-driven
-   - Images begin cropped, expand during scroll
-   - Scale transforms with `power2.out` easing
-   - Clip-path animations for reveal effects
+### Program Detail Page
+- Detailed program information
+- Donation section
+- Share functionality
 
-3. **Environmental Effects**:
-   - Floating particles via CSS animations
-   - Drifting gradients for atmospheric depth
-   - Glassmorphism cards create layering
+### Donate Page
+- Predefined + custom donation amounts
+- Stripe Checkout integration
+- Secure payment experience
 
-## GSAP Animation Strategy
+### Impact / About Page
+- Organization mission
+- Impact statistics
+- Responsive layouts
 
-- **ScrollTrigger**: All scroll-linked animations
-- **Scrub**: Smooth scroll syncing (`scrub: true`)
-- **Counter Animations**: `toggleActions: "play none none reverse"`
-- **Image Scaling**: `scale: 1.1` during scroll viewport intersection
-- **Cleanup**: `ScrollTrigger.getAll().forEach(trigger => trigger.kill())`
+---
 
-## Mobile-First Optimization
+## UI & Experience
 
-- `clamp()` typography for responsive sizing
-- Adaptive parallax (reduced intensity on mobile)
-- Thumb-friendly sticky donation CTA
-- Preserved cinematic composition on all viewports
-- No horizontal overflow guarantees
-- Touch-friendly interactions
+- Scroll-based animations
+- Layered parallax effects
+- Glassmorphism components
+- Mobile-first responsive design
+- Optimized animations for smooth performance
+
+---
+
+## Performance
+
+### Lighthouse Goals
+- Performance: 90+
+- Accessibility: 100
+- Best Practices: 100
+- SEO: 100
+
+### Optimization
+- Next.js Image optimization
+- Dynamic imports
+- Lazy loading
+- Minimal layout shifts
+- Mobile GPU optimization
+
+---
 
 ## Stripe Setup
 
-1. Copy `.env.example` to `.env.local`:
-   ```bash
-   cp .env.example .env.local
-   ```
+Create a `.env.local` file:
 
-2. Add your Stripe test keys from https://dashboard.stripe.com/test/apikeys:
-   ```
-   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
-   STRIPE_SECRET_KEY=sk_test_...
-   NEXT_PUBLIC_BASE_URL=http://localhost:3000
-   ```
+```bash
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
+STRIPE_SECRET_KEY=sk_test_...
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+```
 
-3. Test donation flow with test card: `4242 4242 4242 4242`
+Test card:
 
-## Performance Optimization
+```bash
+4242 4242 4242 4242
+```
 
-- **60fps Target**: Using `transform` only (no layout-triggering properties)
-- **Next.js Image**: Optimization with Unsplash remote patterns
-- **Code Splitting**: Next.js dynamic imports
-- **Zustand Persistence**: Avoids prop drilling
-- **Minimal Layout Shifts**: CLS < 0.1
-
-## Lighthouse Considerations
-
-Target scores:
-- **Performance**: 90+
-- **Accessibility**: 100
-- **Best Practices**: 100
-- **SEO**: 100
-
-Optimization techniques:
-- Preconnect to Unsplash and Stripe domains
-- Lazy load non-critical components
-- Minimize third-party script impact
-- Optimize animation layer count for mobile GPUs
-
-## Deployment Steps
-
-1. **Push to GitHub**:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit"
-   git remote add origin <your-repo-url>
-   git push -u origin main
-   ```
-
-2. **Import to Vercel**:
-   - Go to https://vercel.com/import
-   - Select your GitHub repository
-   - Add environment variables from `.env.local`
-   - Deploy
-
-3. **Update Environment Variables** in Vercel settings:
-   - Set `NEXT_PUBLIC_BASE_URL` to your production URL
+---
 
 ## Project Structure
 
-```
+```bash
 app/
-  layout.tsx           # Root layout with Navbar, Footer, ErrorBoundary
-  page.tsx             # Home page with cinematic hero
   programs/
-    page.tsx           # Programs listing
-    [id]/page.tsx      # Program detail
-  donate/page.tsx       # Donation page (Stripe)
-  about/page.tsx        # Impact/About page
-  success/page.tsx      # Donation success
-  cancel/page.tsx       # Donation cancel
-  api/create-checkout-session/
-    route.ts             # Stripe API route
+  donate/
+  about/
+  api/
 
 components/
-  Navbar.tsx            # Navigation with mobile menu
-  Footer.tsx            # Site footer
-  ScrollHero.tsx         # Cinematic hero section
-  ProgramCard.tsx        # Program card with hover effects
-  ImpactStats.tsx        # Animated counter stats
-  FloatingGlassCard.tsx   # Reusable glassmorphism card
-  DonationDrawer.tsx     # Floating donation drawer
-  MagneticButton.tsx     # Magnetic hover effect button
-  AnimatedCounter.tsx    # GSAP-powered counter
-  ShareButtons.tsx       # Social share buttons
-  SecureBadge.tsx        # Secure payment badge
-  ErrorBoundary.tsx      # Error boundary component
-
 store/
-  donationStore.ts       # Zustand store with persistence
-
 data/
-  programData.ts        # Program data
-
 utils/
-  gsapHelpers.ts        # GSAP parallax/expanding helpers
-  clipboard.ts          # Clipboard utilities
-  formatCurrency.ts     # Currency formatting
 ```
 
-## Getting Started
+---
+
+## Installation
 
 ```bash
 # Install dependencies
 npm install
 
-# Set up environment variables
-cp .env.example .env.local
-# Edit .env.local with your Stripe keys
-
 # Run development server
 npm run dev
-
-# Build for production
-npm run build
-
-# Start production server
-npm start
 ```
 
-Visit `http://localhost:3000` to see the cinematic NGO site.
+Open:
+
+```bash
+http://localhost:3000
+```
+
+---
+
+## Deployment
+
+Deploy easily using Vercel:
+
+https://vercel.com/import
+
+---
+
+## Challenge Coverage
+
+### Included Pages
+- Home Page
+- Programs Page
+- Program Detail Page
+- Donate Page
+- Impact / About Page
+
+### Focus Areas
+- Donation experience
+- Responsive UI
+- Program discovery
+- Social sharing
+- Mobile optimization
+- Micro-interactions
+
+---
+
+## Submission Notes
+
+This project was built with a focus on usability, accessibility, responsive design, and a smooth donation experience for global non-profit organizations.
